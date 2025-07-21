@@ -1,0 +1,200 @@
+{
+  "name": "Uptime Monitor",
+  "nodes": [
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "mode": "everyHour",
+              "minute": "={{ 50 }}"
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [-500, 200],
+      "id": "cron-node"
+    },
+    {
+      "parameters": {
+        "requestMethod": "GET",
+        "url": "https://example1.com",
+        "responseFormat": "string"
+      },
+      "name": "Ping Site 1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [-250, 0],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "id": "site1"
+    },
+    {
+      "parameters": {
+        "requestMethod": "GET",
+        "url": "https://example2.com",
+        "responseFormat": "string"
+      },
+      "name": "Ping Site 2",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [-50, 0],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "id": "site2"
+    },
+    {
+      "parameters": {
+        "requestMethod": "GET",
+        "url": "https://example3.com",
+        "responseFormat": "string"
+      },
+      "name": "Ping Site 3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [150, 0],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "id": "site3"
+    },
+    {
+      "parameters": {
+        "requestMethod": "GET",
+        "url": "https://example4.com",
+        "responseFormat": "string"
+      },
+      "name": "Ping Site 4",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [350, 0],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 1000,
+      "id": "site4"
+    },
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "seconds"
+      },
+      "name": "Delay 1",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [-150, 200],
+      "id": "delay1"
+    },
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "seconds"
+      },
+      "name": "Delay 2",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [50, 200],
+      "id": "delay2"
+    },
+    {
+      "parameters": {
+        "amount": 10,
+        "unit": "seconds"
+      },
+      "name": "Delay 3",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [250, 200],
+      "id": "delay3"
+    }
+  ],
+  "connections": {
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Ping Site 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ping Site 1": {
+      "main": [
+        [
+          {
+            "node": "Delay 1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delay 1": {
+      "main": [
+        [
+          {
+            "node": "Ping Site 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ping Site 2": {
+      "main": [
+        [
+          {
+            "node": "Delay 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delay 2": {
+      "main": [
+        [
+          {
+            "node": "Ping Site 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ping Site 3": {
+      "main": [
+        [
+          {
+            "node": "Delay 3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Delay 3": {
+      "main": [
+        [
+          {
+            "node": "Ping Site 4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "uptime-monitor-github",
+  "tags": []
+}
