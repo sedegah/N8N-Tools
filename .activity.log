@@ -7,3 +7,4 @@
 // Improve retry logic 1755015619
 // Fix API timeout issues 1755015619
 // Update environment variable handling 1755015619
+// Add error alert notifications 1755015619
